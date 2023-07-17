@@ -1,4 +1,4 @@
-package com.example.socialmedia;
+package com.example.social_media;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ActionBar actionBar =getSupportActionBar();
-        actionBar.setTitle("Profile");
+        //actionbar and its title
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Profile");
     }
 }

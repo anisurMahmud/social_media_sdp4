@@ -1,4 +1,4 @@
-package com.example.socialmedia;
+package com.example.social_media;
 
 import org.junit.Test;
 

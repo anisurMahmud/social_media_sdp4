@@ -10,14 +10,10 @@
 
     <TextView
         android:id="@+id/profileTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Profile"
-        android:textSize="30dp"
-        android:textColor="#5b39c6"
-        android:textStyle="bold"
-
-
-        />
+        android:textSize="30sp"
+        android:textColor="@color/design_default_color_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
