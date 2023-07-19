@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".RegisterActivity">
-    
+    tools:context=".LoginActivity">
+
     <!--TextView Label Register-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Register"
-        android:textColor="#000"
+        android:text="Login"
+        android:textColor="#0000FF"
         android:textSize="25sp"/>
 
     <!--Edit Text input Email-->
@@ -40,31 +40,31 @@
         android:id="@+id/passwordTIL"
         android:layout_below="@+id/emailTIL"
         app:passwordToggleEnabled="true">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passwordEt"
-        android:inputType="textPassword"
-        android:hint="Password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEt"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
-<!--Button register User-->
+    <!--Button register User-->
     <Button
-        android:id="@+id/register_Btn"
-        android:text="Register"
+        android:id="@+id/loginBtn"
+        android:text="Login"
         android:layout_below="@id/passwordTIL"
         android:layout_centerHorizontal="true"
         style="@style/MaterialAlertDialog.Material3.Title.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-<!--textview: for login activity-->
+    <!--textview: for register activity-->
     <TextView
-        android:id="@+id/have_accountTv"
+        android:id="@+id/nothave_accountTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Already have account? Login"
+        android:text="No account? Register"
         android:textAlignment="center"
-        android:layout_below="@id/register_Btn"
+        android:layout_below="@id/loginBtn"
         android:layout_marginTop="30dp"
         android:textColor="@color/black"/>
 
