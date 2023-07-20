@@ -87,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
 
         });
@@ -95,7 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
             private void registerUser(String email, String password) {
                 //email and password patter is valid, show progress dialog and start registering the user whoosh
                 progressDialog.show();
-
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
