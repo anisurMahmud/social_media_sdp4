@@ -20,7 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.Api;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;
     GoogleSignInClient mGoogleSignInClient;
+
     //views
     EditText mEmailEt, mPasswordEt;
     TextView notHaveAccountTv, mRecoverPassTv;
@@ -241,14 +244,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //Result returned from launching the intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount>task= GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 //Google Sign In was successful, authenticate with firebase
+                //GoogleSignInAccount account = task.getResult(ApiException.class);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                firebaseAuthWIthGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In Failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
-                Toast.makeText(this, "+e.getMessage", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }
