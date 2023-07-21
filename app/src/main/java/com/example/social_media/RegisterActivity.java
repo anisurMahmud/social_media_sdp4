@@ -3,7 +3,6 @@ package com.example.social_media;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -127,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     reference.child(uid).setValue(hashMap);
 
                                     Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
+                                    startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                                     finish();
                                 } else {
                                     progressDialog.dismiss();
