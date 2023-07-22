@@ -3,7 +3,6 @@ package com.example.social_media;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -103,8 +106,31 @@ public class RegisterActivity extends AppCompatActivity {
                                 if(task.isSuccessful()) {
                                     progressDialog.dismiss();
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    //get user email and uid from auth
+                                    String email=user.getEmail();
+                                    String uid=user.getUid();
+                                    //When user is registered store user info in firebase realtime database too
+                                    //using Hashmap
+                                    HashMap<Object, String> hashMap= new HashMap<>();
+                                    //put info in hashmap
+                                    hashMap.put("email", email);
+                                    hashMap.put("uid", uid);
+                                    hashMap.put("name", "");  // Will add later at edit profile
+                                    hashMap.put("phone","");  // Will add later at edit profile
+                                    hashMap.put("image","");  // Will add later at edit profile
+                                    //Firebase database instance
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    //Path to store user data named" Users"
+                                    DatabaseReference reference = database.getReference("Users");
+                                    // put data within Hashmap in database
+                                    reference.child(uid).setValue(hashMap);
+
+
+
+
+
                                     Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
+                                    startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                                     finish();
                                 } else {
                                     progressDialog.dismiss();
