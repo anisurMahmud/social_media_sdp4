@@ -45,7 +45,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
         myHolder.mNameTv.setText(userName);
         myHolder.mEmailTv.setText(userEmail);
         try {
-            Picasso.get().load(userImage)
+            Picasso.get().load(userImage).rotate(90)
                     .placeholder(R.drawable.ic_default_img)
                     .into(myHolder.mAvatarIv);
 
