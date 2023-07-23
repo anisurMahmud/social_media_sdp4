@@ -1,4 +1,4 @@
-package com.example.social_media;
+package com.example.social_media.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.social_media.ChatActivity;
+import com.example.social_media.models.ModelUsers;
+import com.example.social_media.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
