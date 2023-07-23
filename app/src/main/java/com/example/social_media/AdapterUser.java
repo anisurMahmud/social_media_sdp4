@@ -1,6 +1,7 @@
 package com.example.social_media;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
         //get data
+        String hisUID = userList.get(i).getUid();
         String userImage = userList.get(i).getImage();
         String userName = userList.get(i).getName();
         String userEmail = userList.get(i).getEmail();
@@ -58,7 +60,11 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder> {
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ""+userEmail, Toast.LENGTH_SHORT).show();
+                //click user from user list to start chatting/messaging
+                //will use uid to identify user to chat with
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("hisUid", hisUID);
+                context.startActivity(intent);
             }
         });
 
