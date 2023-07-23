@@ -1,4 +1,4 @@
-package com.example.social_media;
+package com.example.social_media.models;
 
 public class ModelUsers {
     //use same name as in firebase database
