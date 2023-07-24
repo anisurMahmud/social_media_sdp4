@@ -166,7 +166,7 @@ public class AddPostActivity extends AppCompatActivity {
         pd.setMessage("Publishing post...");
         pd.show();
 
-        //for psot-image name, post-id, post-publish-time
+        //for post-image name, post-id, post-publish-time
         String timeStamp = String.valueOf(System.currentTimeMillis());
 
         String filePathAndName = "Posts/" + "post_" + timeStamp;
@@ -337,8 +337,6 @@ public class AddPostActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, image_rui);
         startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
-
-
     }
 
     private boolean checkStoragePermission(){
@@ -447,7 +445,6 @@ public class AddPostActivity extends AppCompatActivity {
                     }
                 }
                 else {
-
                 }
 
             }
@@ -461,7 +458,7 @@ public class AddPostActivity extends AppCompatActivity {
                     }
                     else {
                         //camera or gallery or both permissions were denied
-                        Toast.makeText(this, "Storage permission are necessary...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Storage permission necessary...", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
