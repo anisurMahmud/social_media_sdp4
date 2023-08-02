@@ -283,6 +283,7 @@ public class LoginActivity extends AppCompatActivity {
                                 hashMap.put("email", email);
                                 hashMap.put("uid", uid);
                                 hashMap.put("name", ""); //for later
+                                hashMap.put("onlineStatus","online");
                                 hashMap.put("phone", ""); //for later
                                 hashMap.put("image", ""); //for later
                                 hashMap.put("cover", ""); //for later
