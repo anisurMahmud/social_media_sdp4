@@ -2,11 +2,11 @@ package com.example.social_media;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -47,7 +47,8 @@ public class AddPostActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     DatabaseReference userDbRef;
-    ActionBar actionBar;
+    //ActionBar actionBar;
+    Toolbar toolbar;
 
     //permission constants
     private static final int CAMERA_REQUEST_CODE=100;
@@ -84,11 +85,14 @@ public class AddPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Add New Post");
+        //actionBar = getSupportActionBar();
+        //actionBar.setTitle("Add New Post");
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Add New Post");
         //enabile back button in actionbar
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayShowHomeEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         cameraPermissions = new String[] {android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -97,7 +101,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
-        actionBar.setSubtitle(email);
+        getSupportActionBar().setSubtitle(email);
 
         //get some info of current user to include in post
         userDbRef = FirebaseDatabase.getInstance().getReference("Users");
