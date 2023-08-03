@@ -115,7 +115,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     //put info in hashmap
                                     hashMap.put("email", email);
                                     hashMap.put("uid", uid);
-                                    hashMap.put("name", ""); //for later
+                                    hashMap.put("name", "");
+                                    hashMap.put("onlineStatus","online");
                                     hashMap.put("phone", ""); //for later
                                     hashMap.put("image", ""); //for later
                                     hashMap.put("cover", ""); //for later

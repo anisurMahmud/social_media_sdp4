@@ -368,7 +368,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //this method called when user press allow or deny from permission dialog
-        // here to handle permission cases
+        // here we will handle permission cases (allowed & denied)
 
         switch (requestCode){
             case CAMERA_REQUEST_CODE:{
@@ -391,7 +391,7 @@ public class ProfileFragment extends Fragment {
 
                 //picking from gallery, first check if storage permissions allowed or not
                 if(grantResults.length >0){
-                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAccepted){
                         //permission enabled
                         pickFromGallery();
@@ -557,6 +557,9 @@ public class ProfileFragment extends Fragment {
         if(id == R.id.action_logout){
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        if(id == R.id.action_add_post){
+            startActivity(new Intent(getActivity(),AddPostActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorBlack">#000</color>
+    <color name="barbie">#ff008d</color>
+    <color name="beguni">#6b12ed</color>
+
 </resources>
