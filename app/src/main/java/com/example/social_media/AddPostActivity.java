@@ -84,15 +84,9 @@ public class AddPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
-
-        //actionBar = getSupportActionBar();
-        //actionBar.setTitle("Add New Post");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add New Post");
-        //enabile back button in actionbar
-        //actionBar.setDisplayShowHomeEnabled(true);
-        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         cameraPermissions = new String[] {android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
