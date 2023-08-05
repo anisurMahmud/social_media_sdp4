@@ -44,7 +44,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
     //to get detail of user and post
-    String myUid, myEmail, myName, myDp, postId,pLikes, hisDp, hisName, hisUid, pImage;
+    String myUid, myEmail, myName, myDp, postId,pLikes, hisDp, hisName, hisUid, pImage, pTitle;
 
     boolean mProcessComment = false;
     boolean mProcessLike = false;
@@ -73,6 +73,7 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
 
         //toolbar title
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Post Details");
 
@@ -85,7 +86,7 @@ public class PostDetailActivity extends AppCompatActivity {
         pImageIv = findViewById(R.id.pImageIv);
         uNameTv = findViewById(R.id.uNameTv);
         pTimeTiv = findViewById(R.id.pTimeTv);
-        pTimeTiv = findViewById(R.id.pTitleTv);
+        pTitleTv = findViewById(R.id.pTitleTv);
         pDescriptionTv = findViewById(R.id.pDescriptionTv);
         pLikesTv = findViewById(R.id.pLikesTv);
         pCommentsTv = findViewById(R.id.pCommentsTv);
@@ -433,7 +434,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 //keep checking the posts until get the required post
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     //get data
-                    String pTitle = ""+ds.child("pTitle").getValue();
+                    pTitle = ""+ds.child("pTitle").getValue();
                     String pDescr = ""+ds.child("pDescr").getValue();
                     pLikes = ""+ds.child("pLikes").getValue();
                     String pTimeStamp = ""+ds.child("pTime").getValue();
@@ -450,9 +451,9 @@ public class PostDetailActivity extends AppCompatActivity {
                     String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
 
                     //set data
-                    pTitleTv.setText(pTime);
+                    pTitleTv.setText(pTitle);
                     pDescriptionTv.setText(pDescr);
-                    pLikesTv.setText(pLikes+ "Likes");
+                    pLikesTv.setText(pLikes + "Likes");
                     pTimeTiv.setText(pTime);
                     pCommentsTv.setText(commentCount+ "Comments");
 
@@ -519,6 +520,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         //hide some menu items
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
