@@ -2,12 +2,12 @@ package com.example.social_media.models;
 
 public class ModelPost {
     //use same name as we given while uploading post
-    String pId, pTitle, pDescr, pLikes, pImage, pTime, pComments, uid, uEmail, uDp, uName;
+    String pId, pComments, pTitle, pDescr, pLikes, pImage, pTime, uid, uEmail, uDp, uName;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pId, String pTitle, String pDescr, String pLikes, String pImage, String pTime, String pComments, String uid, String uEmail, String uDp, String uName) {
+    public ModelPost(String pId, String pComments, String pTitle, String pDescr, String pLikes, String pImage, String pTime, String uid, String uEmail, String uDp, String uName) {
         this.pId = pId;
         this.pTitle = pTitle;
         this.pDescr = pDescr;
