@@ -72,6 +72,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, @SuppressLint("RecyclerView") int i) {
         //get data
+        String pComments = postList.get(i).getpComments();
         String uid =postList.get(i).getUid();
         String uEmail = postList.get(i).getuEmail();
         String uName = postList.get(i).getuName();
@@ -82,7 +83,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pImage = postList.get(i).getpImage();
         String pTimeStamp = postList.get(i).getpTime();
         String pLikes = postList.get(i).getpLikes(); //contain total number of likes for a post
-        String pComments = postList.get(i).getpComments();
 
         //convert timestamp to dd/mm/yyyy hh:mm am/pm
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -90,13 +90,12 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
 
         //set data
+        myHolder.pCommentsTv.setText(pComments +" Comments"); //eg 100 comments
         myHolder.uNameTv.setText(uName);
         myHolder.pTimeTv.setText(pTime);
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDescription);
         myHolder.pLikesTv.setText(pLikes +" Likes"); //eg 100 Likes
-
-        myHolder.pCommentsTv.setText(pComments +" Comments"); //eg 100 comments
         
         //set likes for each post
         setLikes(myHolder, pId);
