@@ -2,17 +2,19 @@ package com.example.social_media.models;
 
 public class ModelPost {
     //use same name as we given while uploading post
-    String pId, pTitle, pDescr, pImage, pTime, uid, uEmail, uDp, uName;
+    String pId, pTitle, pDescr, pImage, pTime,pComments, uid, uEmail, uDp, uName,pLikes;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pId, String pTitle, String pDescr, String pImage, String pTime, String uid, String uEmail, String uDp, String uName) {
+    public ModelPost(String pId, String pTitle, String pDescr, String pImage, String pLikes, String pTime, String pComments, String uid, String uEmail, String uDp, String uName) {
         this.pId = pId;
         this.pTitle = pTitle;
         this.pDescr = pDescr;
         this.pImage = pImage;
+        this.pLikes = pLikes;
         this.pTime = pTime;
+        this.pComments = pComments;
         this.uid = uid;
         this.uEmail = uEmail;
         this.uDp = uDp;
@@ -51,12 +53,28 @@ public class ModelPost {
         this.pImage = pImage;
     }
 
+    public String getpLikes() {
+        return pLikes;
+    }
+
+    public void setpLikes(String pLikes) {
+        this.pLikes = pLikes;
+    }
+
     public String getpTime() {
         return pTime;
     }
 
     public void setpTime(String pTime) {
         this.pTime = pTime;
+    }
+
+    public String getpComments() {
+        return pComments;
+    }
+
+    public void setpComments(String pComments) {
+        this.pComments = pComments;
     }
 
     public String getUid() {
