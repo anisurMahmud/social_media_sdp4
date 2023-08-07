@@ -3,6 +3,8 @@ package com.example.social_media;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,6 +24,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.social_media.adapters.AdapterComments;
+import com.example.social_media.models.ModelComment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +40,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class PostDetailActivity extends AppCompatActivity {
@@ -58,6 +64,10 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageButton moreBtn;
     Button likeBtn,shareBtn;
     LinearLayout profileLayout;
+    RecyclerView recyclerView;
+
+    List<ModelComment> commentList;
+    AdapterComments adapterComments;
 
     //add comment views
     EditText commentEt;
@@ -94,6 +104,7 @@ public class PostDetailActivity extends AppCompatActivity {
         likeBtn = findViewById(R.id.likeBtn);
         shareBtn = findViewById(R.id.shareBtn);
         profileLayout = findViewById(R.id.profileLayout);
+        recyclerView = findViewById(R.id.recyclerView);
 
         commentEt = findViewById(R.id.commentEt);
         sendBtn = findViewById(R.id.sendBtn);
@@ -107,8 +118,8 @@ public class PostDetailActivity extends AppCompatActivity {
         setLikes();
 
         getSupportActionBar().setSubtitle("Signed In as: "+myEmail);
-
         //send comment button click
+        loadComments();
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +147,36 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
     }
+
+    private void loadComments() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        commentList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId).child("Comments");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                commentList.clear();
+                for(DataSnapshot ds: datasnapshot.getChildren()){
+                    ModelComment modelComment = ds.getValue(ModelComment.class);
+                    commentList.add(modelComment);
+
+                    adapterComments = new AdapterComments(getApplicationContext(), commentList);
+                    recyclerView.setAdapter(adapterComments);
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
     private void showMoreOptions() {
         //creating popup menu currently having option Delete, we will add more options later
