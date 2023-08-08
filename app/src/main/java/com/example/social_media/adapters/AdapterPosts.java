@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.social_media.AddPostActivity;
 import com.example.social_media.PostDetailActivity;
 
 import com.example.social_media.R;
@@ -231,6 +233,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         if (uid.equals(myUid)){
             //add items in menu
             popupMenu.getMenu().add(Menu.NONE, 0,0, "Delete");
+            popupMenu.getMenu().add(Menu.NONE, 1,0, "Edit");
         }
         popupMenu.getMenu().add(Menu.NONE,2,0,"View Title");
 
@@ -246,10 +249,18 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     //delete is clicked
                     beginDelete(pId, pImage);
                 }
+                 else if( id==1)
+                {
+                    Intent intent=new Intent(context,AddPostActivity.class);
+                   intent.putExtra("key" , "editPost");
+                   intent.putExtra("editPostId", pId);
+
+                }
                 else if (id==2){
                     //start post Details activity
                     Intent intent = new Intent(context, PostDetailActivity.class);
                     intent.putExtra("postId", pId); //will get detail of post using this id, its id of the post clicked
+                    context.startActivity(intent);
                     context.startActivity(intent);
                 }
                 return false;
