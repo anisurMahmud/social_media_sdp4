@@ -116,10 +116,12 @@ public class PostDetailActivity extends AppCompatActivity {
 
         loadUserInfo();
         setLikes();
+        
+        loadComments();
 
         getSupportActionBar().setSubtitle("Signed In as: "+myEmail);
+
         //send comment button click
-        loadComments();
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,34 +151,37 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void loadComments() {
+        //layout for recyclerview
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        //set layout to recycler view
         recyclerView.setLayoutManager(layoutManager);
+
+        //init comments list
         commentList = new ArrayList<>();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId).child("Comments");
+        //path of the post to get its comment
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId).child("comments");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                commentList.clear();
-                for(DataSnapshot ds: datasnapshot.getChildren()){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds: snapshot.getChildren()){
                     ModelComment modelComment = ds.getValue(ModelComment.class);
+
                     commentList.add(modelComment);
-
+                    //setup adapter
                     adapterComments = new AdapterComments(getApplicationContext(), commentList);
+                    //set adapter
                     recyclerView.setAdapter(adapterComments);
-
-
                 }
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-
-
 
     private void showMoreOptions() {
         //creating popup menu currently having option Delete, we will add more options later

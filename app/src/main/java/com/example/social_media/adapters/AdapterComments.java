@@ -5,7 +5,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +24,6 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     Context context;
     List<ModelComment> commentList;
 
-
     public AdapterComments(Context context, List<ModelComment> commentList) {
         this.context = context;
         this.commentList = commentList;
@@ -34,14 +32,15 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //bind the row_comments.xml layout
+        View view = LayoutInflater.from(context).inflate(R.layout.row_comments, viewGroup, false);
 
-        View view = LayoutInflater.from(context).inflate(R.layout.row_comments,viewGroup,false);
         return new MyHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
-
+        //get the data
         String uid = commentList.get(i).getUid();
         String name = commentList.get(i).getuName();
         String email = commentList.get(i).getuEmail();
@@ -49,26 +48,25 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         String cid = commentList.get(i).getcId();
         String comment = commentList.get(i).getComment();
         String timestamp = commentList.get(i).getTimestamp();
-
-        //convert timestamp to dd/mm/yyyy hh:mm am/pm
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(Long.parseLong(timestamp));
-        String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
-
-        // set data
-        myHolder.nameTv.setText(name);
-        myHolder.commentTv.setText(comment);
-        myHolder.timeTv.setText(pTime);
-
-        try {
-            Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
-
-        }catch (Exception e){
-
+        //convert time to ideal format
+        if(timestamp != null){
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            calendar.setTimeInMillis(Long.parseLong(timestamp));
+            String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
+            myHolder.timeTv.setText(pTime);
         }
 
+        //set the data
+        myHolder.nameTv.setText(name);
+        myHolder.commentTv.setText(comment);
 
+        //user dp
+        try {
+            Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
+        }
+        catch (Exception e){
 
+        }
 
     }
 
@@ -79,7 +77,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
     class MyHolder extends RecyclerView.ViewHolder{
 
-
+        // declare views from row comments.xml
         ImageView avatarIv;
         TextView nameTv, commentTv, timeTv;
 
@@ -89,8 +87,6 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
             nameTv = itemView.findViewById(R.id.nameTv);
             commentTv = itemView.findViewById(R.id.commentTv);
             timeTv = itemView.findViewById(R.id.timeTv);
-
         }
     }
-
 }

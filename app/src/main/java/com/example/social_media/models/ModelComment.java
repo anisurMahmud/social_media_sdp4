@@ -1,22 +1,19 @@
 package com.example.social_media.models;
 
 public class ModelComment {
-    String cId, comment, timestamp, uid, uEmail, uDp, uName;
+    String cId, comment, timestamp,uid, uEmail, uDp, uName;
 
-    public ModelComment(){
-
+    public ModelComment() {
     }
 
-
-    public ModelComment(String cId, String comment, String timestamp, String  uid, String uEmail, String uDp, String uName){
+    public ModelComment(String cId, String comment, String timestamp, String uid, String uEmail, String uDp, String uName) {
         this.cId = cId;
-        this.comment= comment;
+        this.comment = comment;
         this.timestamp = timestamp;
         this.uid = uid;
         this.uEmail = uEmail;
         this.uDp = uDp;
         this.uName = uName;
-
     }
 
     public String getcId() {
