@@ -1,18 +1,26 @@
 package com.example.social_media.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.social_media.R;
 import com.example.social_media.models.ModelComment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -23,10 +31,14 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
     Context context;
     List<ModelComment> commentList;
+    String myUid, postId;
 
-    public AdapterComments(Context context, List<ModelComment> commentList) {
+
+    public AdapterComments(Context context, List<ModelComment> commentList, String myUid, String postId) {
         this.context = context;
         this.commentList = commentList;
+        this.myUid = myUid;
+        this.postId = postId;
     }
 
     @NonNull
@@ -64,9 +76,70 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         try {
             Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
         }
-        catch (Exception e){
+        catch (Exception e){ }
+        // comment click listener
 
-        }
+        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(myUid.equals(uid)){
+                    // my comment
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                    builder.setTitle("Delete");
+                    builder.setMessage("Are you sure to delete this comment?");
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // delete comment
+                            deleteComment(cid);
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+                    // show dialog
+                    builder.create().show();
+
+                }
+                else {
+
+                    //not my comment
+                    Toast.makeText(context,"Can't delete others comment..",Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        });
+
+    }
+
+    private void deleteComment(String cid) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId);
+        // it will delete the comment
+        ref.child("comments").child(cid).removeValue();
+        // now update the comment
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+
+                String comments = ""+datasnapshot.child("pComments").getValue();
+                int newCommentVal = Integer.parseInt(comments) - 1;
+                ref.child("pComments").setValue(""+newCommentVal);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseerror) {
+
+            }
+        });
 
     }
 
