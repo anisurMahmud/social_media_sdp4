@@ -102,6 +102,9 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         if (postList.get(i).getpLikes()==null){
             postList.get(i).setpLikes("0");
         }
+        if (postList.get(i).getpComments()==null){
+            postList.get(i).setpComments("0");
+        }
 
         //set user dp
         try{

@@ -71,6 +71,9 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         //set the data
         myHolder.nameTv.setText(name);
         myHolder.commentTv.setText(comment);
+        if (commentList.get(i).getComment()==null){
+            commentList.get(i).setComment("0");
+        }
 
         //user dp
         try {
@@ -130,7 +133,13 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
                 String comments = ""+datasnapshot.child("pComments").getValue();
-                int newCommentVal = Integer.parseInt(comments) - 1;
+                if(comments==null){
+                    comments="0";
+                }
+                int newCommentVal = Integer.parseInt(comments);
+                if(newCommentVal>0){
+                    newCommentVal=newCommentVal-1;
+                }
                 ref.child("pComments").setValue(""+newCommentVal);
 
             }

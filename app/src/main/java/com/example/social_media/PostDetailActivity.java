@@ -430,6 +430,9 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (mProcessComment){
                     String comments = ""+snapshot.child("pComments").getValue();
+                    if(comments==null){
+                        comments = "0";
+                    }
                     int newCommentVal = Integer.parseInt(comments) +1;
                     ref.child("pComments").setValue(""+newCommentVal);
                     mProcessComment = false;
